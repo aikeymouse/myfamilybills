@@ -9,8 +9,8 @@ echo "🚀 MyFamilyBills Docker Launcher"
 echo "================================"
 
 # Configuration
-BACKEND_CONTAINER="backend"
-FRONTEND_CONTAINER="frontend"
+BACKEND_CONTAINER="myfamilybills-backend"
+FRONTEND_CONTAINER="myfamilybills-frontend"
 COMPOSE_FILE="docker-compose.yml"
 
 # Colors for output
@@ -101,19 +101,6 @@ echo "   $DOCKER_COMPOSE down"
 echo
 echo "🗑️  To view logs, run:"
 echo "   $DOCKER_COMPOSE logs -f"
-
-# Open browser (optional)
-read -p "🌐 Open browser to http://localhost:8085? (y/n): " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    if command -v open > /dev/null; then
-        open http://localhost:8085
-    elif command -v xdg-open > /dev/null; then
-        xdg-open http://localhost:8085
-    else
-        echo "Please open http://localhost:8085 in your browser"
-    fi
-fi
 
 # Open browser (optional)
 read -p "🌐 Open browser to http://localhost:8085? (y/n): " -n 1 -r

@@ -1,7 +1,9 @@
+name: myfamilybills
+
 services:
   backend:
     image: aikeymouse/myfamilybills-backend:latest
-    container_name: backend
+    container_name: myfamilybills-backend
     ports:
       - "3085:3085"
     volumes:
@@ -19,7 +21,7 @@ services:
 
   frontend:
     image: aikeymouse/myfamilybills-frontend:latest
-    container_name: frontend
+    container_name: myfamilybills-frontend
     ports:
       - "8085:80"
     depends_on:

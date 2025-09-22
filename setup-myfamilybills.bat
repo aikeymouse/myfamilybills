@@ -7,8 +7,8 @@ echo 🚀 MyFamilyBills Docker Launcher
 echo ================================
 
 REM Configuration
-set BACKEND_CONTAINER=backend
-set FRONTEND_CONTAINER=frontend
+set BACKEND_CONTAINER=myfamilybills-backend
+set FRONTEND_CONTAINER=myfamilybills-frontend
 set COMPOSE_FILE=docker-compose.yml
 
 REM Check if Docker is running
