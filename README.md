@@ -2,9 +2,9 @@
 
 Transform your family's financial chaos into organized, trackable expenses with our comprehensive bills and credit cards statement tracking application.
 
-� **[Visit Our Website](https://aikeymouse.github.io/myfamilybills)** | 📦 **[Get Premium License](https://aikeymouse.gumroad.com/l/myfamilybills)**
+🌐 **[Visit Our Website](https://aikeymouse.github.io/myfamilybills)** | 📦 **[Get Premium License](https://aikeymouse.gumroad.com/l/myfamilybills)**
 
-�🎯 Perfect For:
+🎯 Perfect For:
 - Families managing multiple income sources
 - Couples sharing household expenses
 - Anyone wanting better financial organization
