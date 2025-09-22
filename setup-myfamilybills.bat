@@ -1,17 +1,15 @@
 @echo off
-REM MyFamilyBills Docker Launcher Script for Windows
-REM This script downloads the latest Docker images and launches the application
+REM MyFamilyBills Docker Compose Launcher Script for Windows
+REM This script downloads the latest Docker images and launches the application using Docker Compose
 
 echo.
 echo 🚀 MyFamilyBills Docker Launcher
 echo ================================
 
 REM Configuration
-set BACKEND_IMAGE=aikeymouse/myfamilybills-backend:latest
-set FRONTEND_IMAGE=aikeymouse/myfamilybills-frontend:latest
-set NETWORK_NAME=myfamilybills-network
 set BACKEND_CONTAINER=backend
 set FRONTEND_CONTAINER=frontend
+set COMPOSE_FILE=docker-compose.yml
 
 REM Check if Docker is running
 docker info >nul 2>&1
@@ -23,82 +21,73 @@ if errorlevel 1 (
 
 echo ✅ Docker is running
 
+REM Check if docker-compose is available
+docker-compose --version >nul 2>&1
+if errorlevel 1 (
+    docker compose version >nul 2>&1
+    if errorlevel 1 (
+        echo ❌ Docker Compose is not available. Please install Docker Compose.
+        pause
+        exit /b 1
+    ) else (
+        set DOCKER_COMPOSE=docker compose
+    )
+) else (
+    set DOCKER_COMPOSE=docker-compose
+)
+
+echo ✅ Docker Compose is available
+
+REM Download docker-compose.yml if it doesn't exist
+if not exist "%COMPOSE_FILE%" (
+    echo.
+    echo 📥 Downloading docker-compose.yml...
+    curl -sSL https://raw.githubusercontent.com/aikeymouse/myfamilybills/main/docker-compose.yml -o docker-compose.yml
+    if errorlevel 1 (
+        echo ❌ Failed to download docker-compose.yml
+        pause
+        exit /b 1
+    )
+    echo ✅ docker-compose.yml downloaded
+)
+
 REM Stop and remove existing containers if they exist
 echo.
 echo 🧹 Cleaning up existing containers...
-docker stop %BACKEND_CONTAINER% %FRONTEND_CONTAINER% >nul 2>&1
-docker rm %BACKEND_CONTAINER% %FRONTEND_CONTAINER% >nul 2>&1
-
-REM Remove existing network if it exists
-docker network rm %NETWORK_NAME% >nul 2>&1
-
-REM Create network
-echo.
-echo 🌐 Creating Docker network...
-docker network create %NETWORK_NAME%
-if errorlevel 1 (
-    echo ❌ Failed to create network
-    pause
-    exit /b 1
-)
-echo ✅ Network '%NETWORK_NAME%' created
-
-REM Pull latest images
-echo.
-echo 📥 Pulling latest Docker images...
-echo Pulling backend image: %BACKEND_IMAGE%
-docker pull %BACKEND_IMAGE%
-if errorlevel 1 (
-    echo ❌ Failed to pull backend image
-    pause
-    exit /b 1
-)
-
-echo Pulling frontend image: %FRONTEND_IMAGE%
-docker pull %FRONTEND_IMAGE%
-if errorlevel 1 (
-    echo ❌ Failed to pull frontend image
-    pause
-    exit /b 1
-)
-
-echo ✅ Images pulled successfully
+%DOCKER_COMPOSE% down >nul 2>&1
 
 REM Create data directory for database persistence
 if not exist "data" mkdir data
 echo ✅ Data directory created
 
-REM Launch backend container
+REM Pull latest images and start services
 echo.
-echo 🗄️  Starting backend container...
-docker run -d --name %BACKEND_CONTAINER% --network %NETWORK_NAME% -p 3085:3085 -v "%CD%/data:/app/data" %BACKEND_IMAGE%
+echo � Pulling latest Docker images and starting services...
+%DOCKER_COMPOSE% pull
 if errorlevel 1 (
-    echo ❌ Failed to start backend container
+    echo ❌ Failed to pull Docker images
     pause
     exit /b 1
 )
-echo ✅ Backend container started on port 3085
 
-REM Launch frontend container
-echo.
-echo 🌐 Starting frontend container...
-docker run -d --name %FRONTEND_CONTAINER% --network %NETWORK_NAME% -p 8085:80 %FRONTEND_IMAGE%
+%DOCKER_COMPOSE% up -d
 if errorlevel 1 (
-    echo ❌ Failed to start frontend container
+    echo ❌ Failed to start services
     pause
     exit /b 1
 )
-echo ✅ Frontend container started on port 8085
+
+echo ✅ Services started successfully
 
 REM Wait a moment for containers to start
 echo.
 echo ⏳ Waiting for containers to start...
-timeout /t 5 /nobreak >nul
+timeout /t 10 /nobreak >nul
 
 REM Check container status
 echo.
 echo 📊 Container Status:
-docker ps --filter "name=%BACKEND_CONTAINER%" --filter "name=%FRONTEND_CONTAINER%" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+%DOCKER_COMPOSE% ps
 
 echo.
 echo ✅ 🎉 MyFamilyBills is now running!
@@ -108,11 +97,20 @@ echo    Frontend: http://localhost:8085
 echo    Backend API: http://localhost:3085
 echo.
 echo 🛑 To stop the application, run:
-echo    docker stop %BACKEND_CONTAINER% %FRONTEND_CONTAINER%
+echo    %DOCKER_COMPOSE% down
 echo.
-echo 🗑️  To remove containers:
-echo    docker rm %BACKEND_CONTAINER% %FRONTEND_CONTAINER%
-echo    docker network rm %NETWORK_NAME%
+echo 🗑️  To view logs, run:
+echo    %DOCKER_COMPOSE% logs -f
+
+REM Open browser (optional)
+set /p "openBrowser=🌐 Open browser to http://localhost:8085? (y/n): "
+if /i "%openBrowser%"=="y" (
+    start http://localhost:8085
+)
+
+echo.
+echo Press any key to exit...
+pause >nul
 
 REM Open browser (optional)
 set /p "openBrowser=🌐 Open browser to http://localhost:8085? (y/n): "
