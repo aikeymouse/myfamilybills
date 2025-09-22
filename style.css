@@ -1,0 +1,221 @@
+/* Custom styles for MyFamilyBills website */
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #28a745;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-image {
+    text-align: center;
+}
+
+.hero-icon {
+    font-size: 10rem;
+    opacity: 0.3;
+    color: white;
+}
+
+/* Feature Cards */
+.feature-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), #0052a3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+/* Pricing Cards */
+.pricing-card {
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-featured {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.pricing-featured:hover {
+    transform: scale(1.08);
+}
+
+.price {
+    color: var(--primary-color);
+}
+
+/* Installation Steps */
+.installation-steps {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.step-number {
+    background: var(--primary-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+    margin-top: 0.5rem;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: none;
+    background: white;
+    padding: 0.25rem 0.5rem;
+}
+
+.copy-btn:hover {
+    background: #e9ecef;
+}
+
+/* Navbar adjustments */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Section spacing */
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Contact section */
+.contact-links a {
+    text-decoration: none;
+}
+
+.contact-links a:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0;
+        text-align: center;
+    }
+    
+    .hero-icon {
+        font-size: 6rem;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .pricing-featured {
+        transform: none;
+        margin-top: 1rem;
+    }
+    
+    .step {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .code-block {
+        word-break: break-word;
+        font-size: 0.8rem;
+    }
+}
+
+/* Animation for elements coming into view */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-card,
+.pricing-card,
+.installation-steps {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+}
