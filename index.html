@@ -250,13 +250,28 @@
                         <div class="step mb-4">
                             <div class="step-number">2</div>
                             <div class="step-content">
-                                <h4>Run MyFamilyBills</h4>
-                                <p class="text-muted">Copy and paste this command in your terminal:</p>
-                                <div class="code-block">
-                                    <code>docker run -d --name myfamilybills -p 8085:80 -p 3085:3000 -v myfamilybills_data:/app/backend/data aikeymouse/myfamilybills:latest</code>
-                                    <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyToClipboard(this)">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
+                                <h4>Download and Run Setup Script</h4>
+                                <p class="text-muted">Choose your operating system and run the setup script:</p>
+                                
+                                <div class="mb-3">
+                                    <h5><i class="fab fa-apple me-2"></i>Mac OS / Linux</h5>
+                                    <div class="code-block">
+                                        <code>curl -sSL https://raw.githubusercontent.com/aikeymouse/myfamilybills/main/setup-myfamilybills.sh | bash</code>
+                                        <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyToClipboard(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h5><i class="fab fa-windows me-2"></i>Windows</h5>
+                                    <p class="small text-muted mb-2">Download and run the Windows setup script:</p>
+                                    <div class="code-block">
+                                        <code>curl -sSL https://raw.githubusercontent.com/aikeymouse/myfamilybills/main/setup-myfamilybills.bat -o setup-myfamilybills.bat && setup-myfamilybills.bat</code>
+                                        <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyToClipboard(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
